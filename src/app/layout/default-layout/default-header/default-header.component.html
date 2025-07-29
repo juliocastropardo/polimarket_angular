@@ -1,0 +1,162 @@
+<!--<c-header class="mb-4 d-print-none" position="sticky">-->
+<ng-container>
+  <c-container [fluid]="true" class="border-bottom px-4">
+    <button
+      [cSidebarToggle]="sidebarId"
+      cHeaderToggler
+      class="btn sidebar-toggle-btn"
+      toggle="visible"
+      style="margin-inline-start: -14px"
+      aria-label="Toggle sidebar navigation"
+    >
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+    <c-header-nav class="d-none d-md-flex"> </c-header-nav>
+
+    <c-header-nav class="d-none d-md-flex ms-auto">
+      <div class="notification">
+        <div class="bell-container">
+          <div class="bell"></div>
+        </div>
+      </div>
+      <a cNavLink>
+        <svg cIcon class="my-1" name="cilList" size="lg"></svg>
+      </a>
+      <a cNavLink>
+        <svg cIcon class="my-1" name="cilEnvelopeOpen" size="lg"></svg>
+      </a>
+    </c-header-nav>
+
+    <c-header-nav class="ms-auto ms-md-0">
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+      <!--<ng-container *ngTemplateOutlet="themeDropdown" />
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>-->
+    </c-header-nav>
+
+    <c-header-nav class="mx-0">
+      <ng-container *ngTemplateOutlet="userDropdown" />
+    </c-header-nav>
+  </c-container>
+</ng-container>
+<!--</c-header>-->
+
+<ng-template #userDropdown>
+  <c-nav-item>
+    <a cNavLink> Bienvenido&nbsp;&nbsp;{{ emailaddress }} </a>
+  </c-nav-item>
+  <c-dropdown
+    [popperOptions]="{ placement: 'bottom-start' }"
+    variant="nav-item"
+  >
+    <button
+      [caret]="false"
+      cDropdownToggle
+      class="py-0 pe-0"
+      aria-label="Open user menu"
+    >
+      <div class="profile-avatar">
+        {{ profileInitial }}
+      </div>
+    </button>
+    <ul cDropdownMenu class="pt-0 w-auto">
+      <li>
+        <h6
+          cDropdownHeader
+          class="bg-body-secondary text-body-secondary fw-semibold py-2 rounded-top"
+        >
+          Account
+        </h6>
+      </li>
+      <!--<li>
+        <a cDropdownItem>
+          <svg cIcon class="me-2" name="cilBell"></svg>
+          Updates
+          <c-badge class="ms-2 float-end" color="info"> </c-badge>
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem>
+          <svg cIcon class="me-2" name="cilEnvelopeOpen"></svg>
+          Messages
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem>
+          <svg cIcon class="me-2" name="cilTask"></svg>
+          Tasks
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem>
+          <svg cIcon class="me-2" name="cilCommentSquare"></svg>
+          Comments
+        </a>
+      </li>
+      <li>
+        <h6 cDropdownHeader class="bg-body-secondary text-body-secondary fw-semibold py-2">
+          Settings
+        </h6>
+      </li>-->
+      <li></li>
+      <li>
+        <a cDropdownItem routerLink="/app/tienda/perfil">
+          <svg cIcon class="me-2" name="cilUser"></svg>
+          Mi Perfil
+        </a>
+      </li>
+      <!--<li>
+        <a cDropdownItem routerLink="/app/administracion/controller">
+          <svg cIcon class="me-2" name="cilSettings"></svg>
+          Controller
+        </a>
+      </li>-->
+      <li>
+        <a cDropdownItem routerLink="/app/tienda/wallet">
+          <svg cIcon class="me-2" name="cilCreditCard"></svg>
+          Wallet
+        </a>
+      </li>
+      <!--<li>
+        <a cDropdownItem>
+          <svg cIcon class="me-2" name="cilFile"></svg>
+          Projects
+        </a>
+      </li>-->
+      <li>
+        <hr cDropdownDivider />
+      </li>
+      <li>
+        <a cDropdownItem routerLink="" (click)="logOut()">
+          <svg cIcon class="me-2" name="cilAccountLogout"></svg>
+          Cerrar Sesión
+        </a>
+      </li>
+    </ul>
+  </c-dropdown>
+</ng-template>
+
+<ng-template #themeDropdown>
+  <c-dropdown alignment="end" variant="nav-item">
+    <button [caret]="false" cDropdownToggle aria-label="Open theme picker">
+      <svg cIcon [name]="icons()" size="lg"></svg>
+    </button>
+    <div cDropdownMenu>
+      @for (mode of colorModes; track mode.name) {
+      <button
+        (click)="colorMode.set(mode.name)"
+        [active]="colorMode() === mode.name"
+        [routerLink]="[]"
+        cDropdownItem
+        class="d-flex align-items-center"
+      >
+        <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
+        {{ mode.text }}
+      </button>
+      }
+    </div>
+  </c-dropdown>
+</ng-template>

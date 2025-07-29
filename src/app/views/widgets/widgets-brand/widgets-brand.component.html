@@ -1,0 +1,22 @@
+<c-row class="g-4">
+  <c-col *ngFor="let widget of brandData; let i = index" sm="6" xl="3">
+    <c-widget-stat-d
+      [color]="widget.color ?? ''"
+      [style]="widget.capBg ?? null"
+      [values]="widget.values"
+    >
+      <img [src]="widget.icon" alt="Icon" class="my-4 text-white" height="52" />
+      <ng-container *ngIf="withCharts">
+        <c-chart class="test"
+          #chart="cChart"
+          [data]="widget.data"
+          [options]="chartOptions"
+          class="position-absolute w-100 h-100"
+          type="line"
+        >
+          {{ chart.id }}
+        </c-chart>
+      </ng-container>
+    </c-widget-stat-d>
+  </c-col>
+</c-row>

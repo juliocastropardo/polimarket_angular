@@ -1,0 +1,39 @@
+:host ::ng-deep .col {
+    flex: none !important; /* Estilo forzado */
+    position: relative; /* Necesario para posicionar el pseudo-elemento */
+    padding-bottom: 1rem; /* Espacio entre el contenido y la línea */
+    margin-bottom: 1rem; /* Espacio entre los elementos */
+  }
+  
+:host ::ng-deep .col::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%; /* Centra la línea horizontalmente */
+    bottom: 0; /* Posiciona la línea en la parte inferior */
+    width: 50%; /* Ajusta el ancho de la línea */
+    height: 1px; /* Altura de la línea */
+    background-color: #ccc; /* Color de la línea */
+    transform: translateX(-50%); /* Ajusta la posición para centrar */
+}
+
+:host ::ng-deep .vr {
+    display: none;
+    align-self: stretch;
+    width: var(--cui-border-width);
+    min-height: 1em;
+    padding: 0;
+    background-color: currentcolor;
+    opacity: 0.25;
+}
+
+.vr {
+    display: none;
+    align-self: stretch;
+    width: var(--cui-border-width);
+    min-height: 1em;
+    padding: 0;
+    background-color: currentcolor;
+    opacity: 0.25;
+}
+

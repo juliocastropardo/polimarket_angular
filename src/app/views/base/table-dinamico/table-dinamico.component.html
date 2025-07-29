@@ -1,0 +1,135 @@
+
+<ng-container *ngIf="datos_dinamicos_table.body.length > 0 || datos_dinamicos_table.header.length ">
+    
+    <table class="content-table table-responsive">
+    
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th *ngIf="datos_dinamicos_table.aplica_check" scope="col"></th>
+                <ng-container *ngFor="let cab of datos_dinamicos_table.header; let i = index;">
+                    <th scope="col" (click)="onSortChange(cab, sortOrder, i)">
+                        {{cab.Titulo}}
+                        <span *ngIf="sortOrder === 'asc'">&#8593;</span>
+                        <span *ngIf="sortOrder === 'desc'">&#8595;</span>
+                    </th>
+                </ng-container>
+    
+                <th scope="col" *ngIf="datos_dinamicos_table.cuenta_acciones">Acciones</th>
+            </tr>
+        </thead>
+    
+        <!-- Filas de la tabla -->
+        
+        <ng-container *ngIf="datos_dinamicos_table.mensaje == null; else mensajeNull">
+            <tbody *ngIf="datos_dinamicos_table.body.length > 0">
+                <tr *ngFor="let fila of datos_dinamicos_table.body; let i = index;" [ngStyle]="{'background-color': fila.idMotivo > 0 ? '#D8E0F0' : ''}">
+                
+                    <td class="td-text row-divider" title="{{ datos_dinamicos_table.itemsPerPage * (datos_dinamicos_table.currentPage - 1) + i + 1 }}">
+                        {{ datos_dinamicos_table.itemsPerPage * (datos_dinamicos_table.currentPage - 1) + i + 1 }}
+                    </td>
+        
+                    <ng-container  *ngIf="datos_dinamicos_table.modulo != 'Inventario' && datos_dinamicos_table.modulo != 'Consulta'">
+                        
+                        <ng-container *ngIf="datos_dinamicos_table.modulo == 'Auditoria'">
+                            <td class="row-divider" *ngIf="datos_dinamicos_table.aplica_check && fila.descripcionEstado == 'En Auditoría' ; else emptyRow">
+                                <input class="checkbox_confirmacion" type="checkbox" id="chk_{{fila.id}}" [checked]="selectedItems.has(fila.id)" (change)="CheckSeleccionados(fila.id)" >
+                            </td>
+        
+                            <ng-template #emptyRow>
+                                <td></td> <!-- Aquí se agrega una celda vacía cuando la condición no se cumpla -->
+                            </ng-template>
+                        </ng-container>
+                        
+                        <ng-container *ngIf="datos_dinamicos_table.modulo != 'Auditoria'">
+                            <td class="row-divider" *ngIf="datos_dinamicos_table.aplica_check &&  fila.gestion  === 'Listo' ; else emptyRow">
+                                <input class="checkbox_confirmacion" type="checkbox" id="chk_{{fila.id}}" [checked]="selectedItems.has(fila.id)" (change)="CheckSeleccionados(fila.id)" >
+                            </td>
+                            <ng-template #emptyRow>
+                                <td></td> <!-- Aquí se agrega una celda vacía cuando la condición no se cumpla -->
+                            </ng-template>
+                        </ng-container>
+                        
+                    </ng-container>                    
+                    
+                    <ng-container *ngFor="let clave of obtenerClaves(fila)">
+                        <td class="td-text row-divider" *ngIf="clave !== '_id'  && clave !== 'Id'  && clave !== 'id'  && clave !== 'FechaHora' &&  clave !== 'idMotivo' && !esBooleano(obtenerValor(fila, clave))" title="{{ obtenerValor(fila, clave) }}">
+                            {{ obtenerValor(fila, clave) }}
+                          
+                            <a *ngIf="obtenerValor(fila, clave) === 'En proceso'" class="semaforizacion">
+                              <img src="assets/images/icon/icon-proceso.svg" alt="" />                                             
+                            </a>
+                          
+                            <a *ngIf="obtenerValor(fila, clave) === 'Vencida'" class="semaforizacion">
+                              <img src="assets/images/icon/icon-vencido.svg" alt="" />                                             
+                            </a>
+                          
+                            <a *ngIf="obtenerValor(fila, clave) === 'Listo'" class="semaforizacion">
+                              <img src="assets/images/icon/icon-listo.svg" alt="" />                                             
+                            </a>
+
+                            <a *ngIf="obtenerValor(fila, clave) === 'Devuelto' || obtenerValor(fila, clave) === 'Devuelta'" class="semaforizacion">
+                                <img src="assets/images/icon/icon-devuelto.svg" alt="" />                                             
+                            </a>
+                        </td>
+                          
+                    </ng-container>
+                    
+                    <ng-container *ngFor="let clave of obtenerClaves(fila); let i = index">
+                        <td class="row-divider" *ngIf="clave !== '_id' && esBooleano(obtenerValor(fila, clave))">
+                            <input id="chk_{{fila['_id']}}" [checked]="obtenerValor(fila, clave)" type="checkbox"
+                            value="{{obtenerValor(fila, clave)}}" [disabled]="clave !== 'Habilitado'">
+                            
+                            <label *ngIf="clave !== 'Habilitado'" for="chk_{{fila['_id']}}" class="lbl-switch" for="" ></label>
+                            <label *ngIf="clave === 'Habilitado'" for="chk_{{fila['_id']}}" class="lbl-switch" for="" (click)="ActualizarEstado($event,(fila['_id'] || fila['Id']),obtenerValor(fila, clave))"></label>
+                        </td>
+                    </ng-container>
+        
+                    <ng-container  *ngFor="let clave of obtenerClaves(fila)">
+                        <td class="row-divider" *ngIf="(clave === '_id' || clave === 'Id' || clave === 'id') && datos_dinamicos_table.cuenta_acciones">
+        
+                            <a *ngIf="datos_dinamicos_table.aplica_edicion" class="idea-cloud" ngbTooltip="Editar Registro"  [placement]="'bottom'" (click)="ObtenerNumeroGuia(obtenerValor(fila, clave) )">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.2929 2.29289C16.6834 1.90237 17.3166 1.90237 17.7071 2.29289L21.7071 6.29289C22.0976 6.68342 22.0976 7.31658 21.7071 7.70711L8.70711 20.7071C8.51957 20.8946 8.26522 21 8 21H4C3.44772 21 3 20.5523 3 20V16C3 15.7348 3.10536 15.4804 3.29289 15.2929L13.2927 5.2931L16.2929 2.29289ZM14 7.41421L5 16.4142V19H7.58579L16.5858 10L14 7.41421ZM18 8.58579L19.5858 7L17 4.41421L15.4142 6L18 8.58579Z" fill="#E76100"/>
+                                </svg>                                            
+                            </a>
+        
+                            <a *ngIf="datos_dinamicos_table.aplica_eliminacion" class="idea-cloud" (click)="ObtenerIdDato(obtenerValor(fila, clave) )">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                
+                                    <path id="Icon" d="M7 4C7 2.89543 7.89543 2 9 2H15C16.1046 2 17 2.89543 17 4V6H18.9897C18.9959 5.99994 19.0021 5.99994 19.0083 6H21C21.5523 6 22 6.44772 22 7C22 7.55228 21.5523 8 21 8H19.9311L19.0638 20.1425C18.989 21.1891 18.1182 22 17.0689 22H6.93112C5.88184 22 5.01096 21.1891 4.9362 20.1425L4.06888 8H3C2.44772 8 2 7.55228 2 7C2 6.44772 2.44772 6 3 6H4.99174C4.99795 5.99994 5.00414 5.99994 5.01032 6H7V4ZM9 6H15V4H9V6ZM6.07398 8L6.93112 20H17.0689L17.926 8H6.07398ZM10 10C10.5523 10 11 10.4477 11 11V17C11 17.5523 10.5523 18 10 18C9.44772 18 9 17.5523 9 17V11C9 10.4477 9.44772 10 10 10ZM14 10C14.5523 10 15 10.4477 15 11V17C15 17.5523 14.5523 18 14 18C13.4477 18 13 17.5523 13 17V11C13 10.4477 13.4477 10 14 10Z" fill="#F87C22"/>
+                                </svg>
+                            </a>
+        
+                            <a *ngIf="datos_dinamicos_table.aplica_historico" ngbTooltip="Ver Detalle" (click)="ObtenerNumeroGuia(obtenerValor(fila, clave) )" [placement]="'bottom'">
+                                <svg  viewBox="0 0 24 24" width="24px" height="24px">
+                                    <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" fill="#E76100"/>
+                                </svg>
+                            </a>
+        
+                            <a *ngIf="datos_dinamicos_table.elimina_registro" ngbTooltip="Eliminar" (click)="ObtenerNumeroGuia(obtenerValor(fila, clave) )" [placement]="'bottom'">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                
+                                    <path id="Icon" d="M7 4C7 2.89543 7.89543 2 9 2H15C16.1046 2 17 2.89543 17 4V6H18.9897C18.9959 5.99994 19.0021 5.99994 19.0083 6H21C21.5523 6 22 6.44772 22 7C22 7.55228 21.5523 8 21 8H19.9311L19.0638 20.1425C18.989 21.1891 18.1182 22 17.0689 22H6.93112C5.88184 22 5.01096 21.1891 4.9362 20.1425L4.06888 8H3C2.44772 8 2 7.55228 2 7C2 6.44772 2.44772 6 3 6H4.99174C4.99795 5.99994 5.00414 5.99994 5.01032 6H7V4ZM9 6H15V4H9V6ZM6.07398 8L6.93112 20H17.0689L17.926 8H6.07398ZM10 10C10.5523 10 11 10.4477 11 11V17C11 17.5523 10.5523 18 10 18C9.44772 18 9 17.5523 9 17V11C9 10.4477 9.44772 10 10 10ZM14 10C14.5523 10 15 10.4477 15 11V17C15 17.5523 14.5523 18 14 18C13.4477 18 13 17.5523 13 17V11C13 10.4477 13.4477 10 14 10Z" fill="#F87C22"/>
+                                </svg>
+                            </a>
+                        </td>
+                    </ng-container>
+                </tr>
+            </tbody>
+        </ng-container>
+        <ng-template #mensajeNull>
+            <tbody>
+                <tr>
+                    <!-- Aquí utilizamos property binding con [colspan] y el tamaño de datos_dinamicos_table.header -->
+                    <td [attr.colspan]="datos_dinamicos_table.header.length + 2" class="td-text-mensaje bordered-cell">
+                        <!-- Aquí puedes colocar el mensaje que quieras mostrar cuando los datos sean nulos o vacíos -->
+                        <span>{{datos_dinamicos_table.mensaje}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </ng-template>
+        
+        
+    </table>
+</ng-container>
+
+

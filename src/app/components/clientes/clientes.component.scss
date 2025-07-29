@@ -1,0 +1,10 @@
+$container-width: 100%; /* Aumenta el ancho relativo al 95% del viewport */
+$container-max-width: 1600px; /* Aumenta el ancho máximo a 1600px */
+
+.container {
+    width: $container-width;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}

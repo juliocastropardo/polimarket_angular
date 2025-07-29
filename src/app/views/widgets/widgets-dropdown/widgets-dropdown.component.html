@@ -1,0 +1,584 @@
+<h1>NOMINALES</h1>
+
+<c-row class="row">
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'$ Ventas'"
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{ sumaventas }}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li>
+              <hr cDropdownDivider>
+            </li>
+            <li>
+              <button cDropdownItem>Separated link</button>
+            </li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[0]" [options]="options[0]" class="mt-3 mx-3" height="70" [type]="'line'"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Número de ventas'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{numeroventas}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[1]" [options]="options[1]" class="mt-3 mx-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Cerrados'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{numerocerrados}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[2]" [options]="options[2]" class="mt-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Abiertos'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{numeroabiertos}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[3]" [options]="options[3]" class="mt-3 mx-3" height="70" type="bar"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      
+      [title]="'Número de entregas'"
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{numeroentregas}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li>
+              <hr cDropdownDivider>
+            </li>
+            <li>
+              <button cDropdownItem>Separated link</button>
+            </li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[0]" [options]="options[0]" class="mt-3 mx-3" height="70" [type]="'line'"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Número de Devoluciones'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{numerodevoluciones}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[1]" [options]="options[1]" class="mt-3 mx-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Costo Flete'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{costoflete}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[2]" [options]="options[2]" class="mt-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Costo Devoluciones'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{costoDevolucionPromedio}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[3]" [options]="options[3]" class="mt-3 mx-3" height="70" type="bar"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+</c-row>
+
+<h1>TEMPORALIDAD</h1>
+
+<c-row class="row">
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      
+      [title]="'Pendientes > 3'"
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.pendientemayora3}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li>
+              <hr cDropdownDivider>
+            </li>
+            <li>
+              <button cDropdownItem>Separated link</button>
+            </li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[0]" [options]="options[0]" class="mt-3 mx-3" height="70" [type]="'line'"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Ciclo de Despacho'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.ciclodespacho}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[1]" [options]="options[1]" class="mt-3 mx-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Ciclo de Entrega'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.cicloentrega}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[2]" [options]="options[2]" class="mt-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Ciclo de Devolución'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.ciclodevolucion}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[3]" [options]="options[3]" class="mt-3 mx-3" height="70" type="bar"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      
+      [title]="'Ciclo de Pago'"
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.ciclopago}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li>
+              <hr cDropdownDivider>
+            </li>
+            <li>
+              <button cDropdownItem>Separated link</button>
+            </li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[0]" [options]="options[0]" class="mt-3 mx-3" height="70" [type]="'line'"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Ciclo de Pendientes'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.ciclopendiente}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[1]" [options]="options[1]" class="mt-3 mx-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'Ciclo de Cierre'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.ciclocierre}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[2]" [options]="options[2]" class="mt-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  
+</c-row>
+
+<h1>EFICIENCIA</h1>
+
+<c-row class="row">
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      
+      [title]="'% de Devolución'"
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{ envio?.porcentajedevolucion }}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li>
+              <hr cDropdownDivider>
+            </li>
+            <li>
+              <button cDropdownItem>Separated link</button>
+            </li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[0]" [options]="options[0]" class="mt-3 mx-3" height="70" [type]="'line'"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'% de Entrega'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.porcentajeentrega}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[1]" [options]="options[1]" class="mt-3 mx-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'% de Pendientes'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.porcentajependiente}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[2]" [options]="options[2]" class="mt-3" height="70" type="line"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      [title]="'% de Cierre'"
+      
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.porcentajecierre}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li><a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a></li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[3]" [options]="options[3]" class="mt-3 mx-3" height="70" type="bar"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col class="custom-col">
+    <c-widget-stat-a
+      
+      [title]="'% de Novedades'"
+      class="widget-title"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span class="widget-value">{{envio?.porcentajenovedad}}</span>
+      </ng-template>
+      <ng-template cTemplateId="widgetActionTemplate">
+        <c-dropdown alignment="end" variant="btn-group">
+          <button [caret]="false" cButton cDropdownToggle class="p-0 text-white" color="transparent" aria-label="Open dropdown">
+            <svg cIcon name="cilOptions"></svg>
+          </button>
+          <ul cDropdownMenu>
+            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+            <li>
+              <hr cDropdownDivider>
+            </li>
+            <li>
+              <button cDropdownItem>Separated link</button>
+            </li>
+          </ul>
+        </c-dropdown>
+      </ng-template>
+      <ng-template cTemplateId="widgetChartTemplate">
+        <c-chart [data]="data[0]" [options]="options[0]" class="mt-3 mx-3" height="70" [type]="'line'"></c-chart>
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+</c-row>

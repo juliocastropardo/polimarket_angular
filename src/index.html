@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <base href="/">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <meta content="Dashboard LogiGho" name="description"/>
+  <meta content="CoreUI,Bootstrap,Admin,Template,Free,Angular,Dashboard,Typescript" name="keyword"/>
+  <link href="assets/images/LOGO2.png" rel="icon" type="image/x-icon">
+  <title>Dashboard LogiGho</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .loading-container {
+      text-align: center; 
+      padding-top: calc(100vh / 2); 
+      height: 100vh;
+    }
+    .spinner {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 5px solid transparent;
+      border-radius: 50%;
+      border-top: 5px solid #0e2C46; /* Primer color del gradiente */
+      border-bottom: 5px solid #ff6634; /* Segundo color del gradiente */
+      animation: spin 1s linear infinite;
+    }
+    .loading-text {
+      margin-top: 10px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2em;
+      color: #333;
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <meta name="theme-color" content="#1976d2">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="mat-typography">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <app-root>
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <span class="loading-text">Cargando...</span>
+    </div>
+  </app-root>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<div class="container">
+
+  <h2 class="fade-in-left">Cliente Angular</h2>
+
+  <!-- Account Section -->
+  <div class="section">
+    <h2>Listar Clientes</h2>
+    <div class="search-section">
+      <div class="search-create">
+        <input type="text" placeholder="Buscar" [(ngModel)]="searchValueCuentas">
+        <button>Buscar</button>
+      </div>
+    </div>
+    <app-creacion-owner-account [isOpen]="isAccountModalOpen" (closeEvent)="closeAccountModal()"></app-creacion-owner-account>
+    <app-clientes [searchValue]="searchValueUsuario"></app-clientes>
+  </div>
+ 
+  <!-- Tiendas Section -->
+  <div class="section">
+    <h2>Listar Productos</h2>
+    <div class="search-section">
+      <div class="search-create">
+        <input type="text" placeholder="Buscar" [(ngModel)]="searchValueTiendas">
+        <button>Buscar</button>
+      </div>
+    </div>
+    <app-tiendas [searchValue]="searchValueTiendas"></app-tiendas>
+  </div>
+</div>

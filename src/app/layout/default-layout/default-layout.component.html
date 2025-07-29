@@ -1,0 +1,51 @@
+<c-sidebar
+  #sidebar1="cSidebar"
+  class="d-print-none sidebar sidebar-fixed border-end narrow"
+  colorScheme="dark"
+  id="sidebar1"
+  visible
+  [unfoldable]="true"
+  (mouseenter)="expandSidebar()"
+  (mouseleave)="collapseSidebar()"
+>
+  <c-sidebar-header class="border-bottom">
+    <c-sidebar-brand>
+      <a [routerLink]="['/app/maps']">
+        <img src="../../../assets/images/LOGIGHO2.png" [class]="{icon: false}" class="sidebar-brand-full" height="30" alt="logo">
+      </a>
+      <a [routerLink]="['/app/maps']">
+        <img src="../../../assets/images/LOGO2.png" class="sidebar-brand-narrow" height="30" alt="signet">
+      </a>
+    </c-sidebar-brand>
+  </c-sidebar-header>
+
+  <ng-scrollbar #scrollbar="ngScrollbar" (updated)="onScrollbarUpdate(scrollbar.state)" class="overflow" pointerEventsMethod="scrollbar" visibility="hover">
+    <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact></c-sidebar-nav>
+  </ng-scrollbar>
+</c-sidebar>
+
+<div class="wrapper d-flex flex-column min-vh-100">
+  <app-default-header
+    [cShadowOnScroll]="'sm'"
+    class="mb-4 d-print-none header header-sticky p-0 shadow-sm"
+    position="sticky"
+    sidebarId="sidebar1"
+  ></app-default-header>
+  <div class="body">
+    <c-container class="container">
+      <router-outlet></router-outlet>
+    </c-container>
+  </div>
+  <!-- WhatsApp Chat Button -->
+<div class="whatsapp-btn-container">
+  <a
+    href="https://wa.me/3176064197"
+    target="_blank" 
+    class="whatsapp-btn" 
+    title="Atencion al Cliente">
+    <img src="assets/images/whatsapp-icon.png" alt="WhatsApp Icon">
+  </a>
+</div>
+
+  <app-default-footer></app-default-footer>
+</div>

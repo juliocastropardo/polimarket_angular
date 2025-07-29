@@ -1,0 +1,99 @@
+
+.widget-value {
+    font-size: 0.8rem; // Ajusta el tamaño de la fuente según sea necesario
+    @media (max-width: 768px) {
+      font-size: 0.7rem; // Ajusta para pantallas más pequeñas
+    }
+  }
+  
+  .widget-title {
+    font-size: 0.8rem; // Ajusta el tamaño de la fuente según sea necesario
+    @media (max-width: 768px) {
+      font-size: 0.8rem; // Ajusta para pantallas más pequeñas, igual para mantener consistencia
+    }
+  }
+
+  .card {
+    border: none !important; // Elimina el borde
+    box-shadow: none !important; // Elimina la sombra, si es necesario
+    height: 90%;
+    transition: transform 0.3s ease; // Añade una transición suave
+    background-color: #1e66a1;
+    color: #f8f9fa;
+  
+    &:hover {
+      transform: scale(1.2); // Agranda el recuadro al pasar el mouse
+      z-index: 1;
+    }
+  }
+  
+  // También puedes eliminar el borde para la clase 'my-4' si es necesario
+  .row {
+    border: none !important; // Elimina el borde
+  }
+  
+  // Selección de c-card si es necesario
+  c-card {
+    border: none !important; // Elimina el borde
+    box-shadow: none !important; // Elimina la sombra, si es necesario
+  }
+  .custom-col {
+    flex: 1 0 12.5%; // Esto es aproximadamente la décima parte de la fila (8 columnas por fila en una cuadrícula de 12 columnas)
+    max-width: 20%;
+    background-color: #f8f9fa;
+    border: none;
+    box-shadow: none;
+
+    @media (max-width: 1200px) {
+      flex: 0 0 16.66%; // Ajusta a 6 columnas por fila en pantallas más pequeñas
+      max-width: 16.66%;
+    }
+  
+    @media (max-width: 992px) {
+      flex: 0 0 25%; // Ajusta a 4 columnas por fila en pantallas medianas
+      max-width: 25%;
+    }
+  
+    @media (max-width: 768px) {
+      flex: 0 0 33.33%; // Ajusta a 3 columnas por fila en pantallas pequeñas
+      max-width: 33.33%;
+    }
+  
+    @media (max-width: 576px) {
+      flex: 0 0 50%; // Ajusta a 2 columnas por fila en pantallas extra pequeñas
+      max-width: 50%;
+    }
+  }
+
+  .my-4 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    border: rgb(7, 8, 8);
+  }
+
+  // Variables
+$primary-color: #0e2C46;
+$secondary-color: #ff6634;
+$font-stack: 'Arial', sans-serif;
+$font-size: 1.5rem;
+
+// Estilo para <h1>
+h1 {
+  font-family: $font-stack;
+  font-size: $font-size;
+  color: $primary-color;
+  text-align: left;
+  margin: 0;
+  padding: 1rem 0;
+  background-color: #f8f9fa;
+
+  // Hover effect
+  &:hover {
+    color: $secondary-color;
+  }
+
+  // Media query para pantallas más pequeñas
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
+}

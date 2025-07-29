@@ -1,0 +1,254 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>{{ nombre }}</strong> <small>{{ descripcion }}</small>
+        <button (click)="toggleCollapse()" class="collapse-btn">
+          {{ isCollapsed ? '＋' : '－' }}
+        </button>
+        <div class="column-toggler">
+          <button 
+            #columnTogglerButton 
+            (click)="isTogglerOpen = !isTogglerOpen" 
+            class="toggler-button">
+            <i class="fas fa-cogs"></i> Columnas
+          </button>
+          <div *ngIf="isTogglerOpen" #dropdownMenu class="dropdown-menu">
+            <div class="dropdown-header">
+              <button class="btn-action" (click)="selectAllColumns()">Seleccionar Todas</button>
+              <button class="btn-action" (click)="deselectAllColumns()">Deseleccionar Todas</button>
+            </div>
+            <div class="dropdown-body">
+              <label *ngFor="let column of columns" class="dropdown-option">
+                <input
+                  type="checkbox"
+                  [checked]="isColumnVisible(column.key)"
+                  (change)="toggleColumnVisibility(column.key)"
+                />
+                {{ column.key }}
+              </label>
+            </div>
+          </div>
+        </div>                                   
+      </c-card-header>
+
+      <c-card-body [ngClass]="{'collapsed': isCollapsed, 'expanded': !isCollapsed}">
+        <div class="container">
+          <cdk-virtual-scroll-viewport #scrollViewport itemSize="50" class="virtual-scroll-container">
+            <table 
+              [hover]="true"
+              [striped]="true"
+              align="middle"
+              cTable
+              class="mb-0 border custom-table">
+              <thead cTableColor="light">
+                <tr>
+                  <!-- Encabezados de columnas con ordenamiento -->
+                  <th *ngFor="let column of columns; let i = index"
+                      [style.top]="inverseOfTranslation"
+                      [hidden]="!isColumnVisible(column.key)"
+                      scope="col"
+                      (click)="sortByColumn(column.key)"
+                      draggable="true"
+                      (dragstart)="dragStart(i)"
+                      (dragover)="dragOver($event, i)"
+                      (drop)="drop(i)">
+                    
+                    {{ column.key }}
+                    <i *ngIf="sortColumn === column.key"
+                       [ngClass]="sortDirection === 'asc' ? 'fas fa-arrow-up-wide-short' : 'fas fa-arrow-down-wide-short'">
+                    </i>
+
+                  </th>
+              
+                  <th *ngIf="acciones" [style.top]="inverseOfTranslation" scope="col">Acciones</th>
+                  <th *ngIf="actions" [style.top]="inverseOfTranslation" scope="col">Documentos</th>
+                  <th *ngIf="visualizacion" [style.top]="inverseOfTranslation" scope="col">Documentos</th>
+                  <th *ngIf="PQR" [style.top]="inverseOfTranslation" scope="col">PQR</th>
+                  <th *ngIf="anulacion" [style.top]="inverseOfTranslation" scope="col">Anulacion Guia</th>
+                  <th *ngIf="desasignar" [style.top]="inverseOfTranslation" scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *cdkVirtualFor="let row of paginatedRows; trackBy: trackByFn" class="table-row">
+                  <td *ngFor="let column of columns" [hidden]="!isColumnVisible(column.key)" scope="col">
+                    <!-- Para la columna de Estado -->
+                    <ng-container *ngIf="column.title === 'Estado'">
+                      <button (click)="abrirModal('VisualizarModalNovedades', row)" [class]="getStatusClass(row[column.key])">
+                        {{ row[column.key] }}
+                      </button>
+                    </ng-container>
+
+                                              <!-- Para la columna de EstadoWallet -->
+                    <ng-container *ngIf="column.title === 'EstadoWallet'">
+                      <span span *ngIf="row[column.key] === 'Habilitada'" class="status active">
+                        {{ row[column.key] }}
+                      </span>
+                      <span *ngIf="row[column.key] === 'Inhabilitada'" class="status inactive">
+                        {{ row[column.key] }}
+                      </span>
+                      <span *ngIf="row[column.key] !== 'Habilitada' && row[column.key] !== 'Inhabilitada'" class="status neutral">
+                        {{ row[column.key] }}
+                      </span>
+                    </ng-container>
+
+                    <ng-container *ngIf="column.title === 'Tipo'">
+                      <span *ngIf="row[column.key] === 'Debito'" class="status active">
+                        {{ row[column.key] }}
+                      </span>
+                      <span *ngIf="row[column.key] === 'Credito'" class="status inactive">
+                        {{ row[column.key] }}
+                      </span>
+                    </ng-container>
+
+                    <ng-container *ngIf="column.title === 'Validacion'">
+                      <span *ngIf="row[column.key] === 'OK'" class="status active">
+                        {{ row[column.key] }}
+                      </span>
+                      <span *ngIf="row[column.key] != 'OK'" class="status inactive">
+                        {{ row[column.key] }}
+                      </span>
+                    </ng-container>
+
+
+                    <ng-container *ngIf="column.title === 'Porcentaje Devoluciones'">
+                      <span
+                        *ngIf="cleanValue(row[column.key]) !== null && cleanValue(row[column.key])! <= 50"
+                        class="status active"
+                      >
+                        {{ cleanValue(row[column.key])! }}%
+                      </span>
+                      <span
+                        *ngIf="cleanValue(row[column.key]) !== null && cleanValue(row[column.key])! > 50"
+                        class="status inactive"
+                      >
+                        {{ cleanValue(row[column.key])! }}%
+                      </span>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="column.title === 'Porcentaje Entregas'">
+                      <span
+                        *ngIf="cleanValue(row[column.key]) !== null && cleanValue(row[column.key])! <= 50 && cleanValue(row[column.key])! != 0"
+                        class="status inactive"
+                      >
+                        {{ cleanValue(row[column.key])! }}%
+                      </span>
+                      <span
+                        *ngIf="cleanValue(row[column.key]) !== null && (cleanValue(row[column.key])! > 50 || cleanValue(row[column.key])! == 0)"
+                        class="status active"
+                      >
+                        {{ cleanValue(row[column.key])! }}%
+                      </span>
+                    </ng-container>
+                                    
+                    
+                    <ng-container *ngIf="column.title === 'Cliente Existe'">
+                      <span *ngIf="row[column.key] === 'No'" class="status active">
+                        {{ row[column.key] }}
+                      </span>
+                      <span *ngIf="row[column.key] === 'Si'" class="status inactive">
+                        {{ row[column.key] }}
+                      </span>
+                    </ng-container>
+
+                    <ng-container *ngIf="column.title === 'Venta Duplicada 8 Dias'">
+                      <span *ngIf="row[column.key] === 'No'" class="status active">
+                        {{ row[column.key] }}
+                      </span>
+                      <span *ngIf="row[column.key] === 'Si'" class="status inactive">
+                        {{ row[column.key] }}
+                      </span>
+                    </ng-container>
+
+                    <ng-container *ngIf="column.title === 'Venta Duplicada 48 Horas'">
+                      <span *ngIf="row[column.key] === 'No'" class="status active">
+                        {{ row[column.key] }}
+                      </span>
+                      <span *ngIf="row[column.key] === 'Si'" class="status inactive">
+                        {{ row[column.key] }}
+                      </span>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="row['Estado Novedad'] !== undefined">
+                        <!-- Mostrar el valor si existe -->
+                      <span *ngIf="row[column.key] === 'Gestionada'" class="status active">
+                        {{ row[column.key] }}
+                      </span>
+                      <span *ngIf="row[column.key] === 'No Gestionada'" class="status inactive">
+                        {{ row[column.key] }}
+                      </span>
+                    </ng-container>                
+
+                    <!-- Para la columna de State -->
+                    <ng-container *ngIf="column.title === 'State'">
+                      <span *ngIf="row[column.key] === 'Activo'" class="status active">
+                        {{ row[column.key] }}
+                      </span>
+                      <span *ngIf="row[column.key] === 'Inactivo'" class="status inactive">
+                        {{ row[column.key] }}
+                      </span>
+                    </ng-container>
+
+                    <!-- Para la columna de Validado -->
+                    <ng-container *ngIf="column.title === 'Validado'">
+                      <span *ngIf="row[column.key] === 'Sí'" class="validated">
+                        ✔
+                      </span>
+                      <span *ngIf="row[column.key] !== 'Sí'" class="invalidated">
+                        ✖
+                      </span>
+                    </ng-container>
+
+                    <!-- Para cualquier otra columna -->
+                    <ng-container *ngIf="column.title !== 'Validacion' && column.title !== 'Porcentaje Devoluciones' && column.title !== 'Porcentaje Entregas' && column.title !== 'Venta Duplicada 8 Dias' && column.title !== 'Venta Duplicada 48 Horas' && column.title !== 'Cliente Existe' && column.title !== 'Estado Novedad' && column.title !== 'Tipo' && column.title !== 'Estado' && column.title !== 'State' && column.title !== 'Validado'">
+                      <span [innerHTML]="row[column.key] !== undefined && row[column.key] !== null ? row[column.key] : ''"></span>
+                    </ng-container>                                 
+                    
+                  </td>
+
+                  <td *ngIf="acciones">
+                    <button class="btn-blue" (click)="abrirModal(nombreModal, row)">{{valueacciones}}</button>
+                  </td>
+                  
+                  <td *ngIf="PQR">
+                    <button class="btn-red" (click)="abrirModal(nombreModal, row)">Crear PQR</button>
+                  </td>
+
+                  <td *ngIf="anulacion">
+                    <button class="btn-yellow-dark" (click)="anularGuia(nombreModal, row)">Anular Guia</button>
+                  </td>
+
+                  <td *ngIf="desasignar">
+                    <button class="btn-red" (click)="desasignarGuia(nombreModal, row)">Desasignar Guia</button>
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </cdk-virtual-scroll-viewport>
+          
+        </div>
+        <!-- Controles de paginación -->
+        <div class="pagination-controls">
+          <button (click)="previousPage()" [disabled]="currentPage === 1"><<</button>
+        
+          <!-- Botones de páginas -->
+          <ng-container *ngFor="let page of paginationRange">
+            <button 
+            *ngIf="page !== null" 
+            (click)="goToPage(page)" 
+            [class.active]="page === currentPage">
+            {{ page }}
+          </button>
+            <span *ngIf="page === null">...</span>
+          </ng-container>
+        
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages">>></button>
+        </div>
+        
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+
+<div #modalContainer class="modal"></div>
